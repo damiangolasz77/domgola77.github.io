@@ -1,0 +1,83 @@
+<div class="app">
+  <div class="stage" id="stage">
+    <span class="tag" id="stageTag">Podgląd na żywo · WebGL2</span>
+    <chrome-logo id="logo" interactive></chrome-logo>
+    <span class="hint">Przeciągnij, żeby obrócić</span>
+  </div>
+
+  <aside class="rail" aria-label="Ustawienia">
+    <header>
+      <h1>Chrome Logo Studio</h1>
+      <button class="ghost" id="reset" type="button">Resetuj</button>
+    </header>
+
+    <section aria-labelledby="h-presets">
+      <h2 id="h-presets">Presety ruchu</h2>
+      <div class="presets" id="presets">
+        <button class="chip" type="button" data-preset="still">Statyczne</button>
+        <button class="chip" type="button" data-preset="breath">Oddech</button>
+        <button class="chip" type="button" data-preset="pump">Pompa</button>
+        <button class="chip" type="button" data-preset="wave">Fala</button>
+        <button class="chip" type="button" data-preset="heavy">Ciężkie</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-swell">
+      <h2 id="h-swell">Puchnięcie</h2>
+      <div class="row"><label for="swell">Grubość kreski</label><output for="swell" id="o-swell"></output>
+        <input type="range" id="swell" min="-0.5" max="1" step="0.01" data-attr="swell" data-fmt="signed"></div>
+      <div class="row"><label for="pulse">Amplituda pulsu</label><output for="pulse" id="o-pulse"></output>
+        <input type="range" id="pulse" min="0" max="1" step="0.01" data-attr="pulse"></div>
+      <div class="row"><label for="pulse-speed">Tempo</label><output for="pulse-speed" id="o-pulse-speed"></output>
+        <input type="range" id="pulse-speed" min="0.05" max="2" step="0.01" data-attr="pulse-speed" data-fmt="hz"></div>
+      <div class="row"><label for="wave">Fala</label><output for="wave" id="o-wave"></output>
+        <input type="range" id="wave" min="0" max="1" step="0.01" data-attr="wave">
+        <span class="sub">0 = całe logo oddycha naraz, wyżej = zgrubienie płynie po kresce</span></div>
+      <div class="row"><label for="wave-angle">Kierunek fali</label><output for="wave-angle" id="o-wave-angle"></output>
+        <input type="range" id="wave-angle" min="0" max="360" step="1" data-attr="wave-angle" data-fmt="deg"></div>
+    </section>
+
+    <section aria-labelledby="h-motion">
+      <h2 id="h-motion">Obrót</h2>
+      <div class="row"><label for="speed">Prędkość</label><output for="speed" id="o-speed"></output>
+        <input type="range" id="speed" min="-1.5" max="1.5" step="0.01" data-attr="speed" data-fmt="signed"></div>
+      <div class="row"><label for="tilt">Pochylenie</label><output for="tilt" id="o-tilt"></output>
+        <input type="range" id="tilt" min="-35" max="35" step="1" data-attr="tilt" data-fmt="deg"></div>
+      <label class="switch"><input type="checkbox" id="interactive" checked> Obracanie myszką</label>
+    </section>
+
+    <section aria-labelledby="h-mat">
+      <h2 id="h-mat">Materiał i światło</h2>
+      <div class="row"><label for="thickness">Okrągłość rurki</label><output for="thickness" id="o-thickness"></output>
+        <input type="range" id="thickness" min="0.4" max="1.6" step="0.01" data-attr="thickness"></div>
+      <div class="row"><label for="roughness">Szorstkość</label><output for="roughness" id="o-roughness"></output>
+        <input type="range" id="roughness" min="0" max="0.35" step="0.005" data-attr="roughness"></div>
+      <div class="row"><label for="exposure">Ekspozycja</label><output for="exposure" id="o-exposure"></output>
+        <input type="range" id="exposure" min="0.4" max="2" step="0.01" data-attr="exposure"></div>
+      <div class="row"><label for="light">Obrót świateł</label><output for="light" id="o-light"></output>
+        <input type="range" id="light" min="-180" max="180" step="1" data-attr="light" data-fmt="deg"></div>
+      <div class="inline"><span>Kolor tylnych świateł</span><input type="color" id="tint" aria-label="Kolor tylnych świateł"></div>
+    </section>
+
+    <section aria-labelledby="h-bg">
+      <h2 id="h-bg">Tło</h2>
+      <div class="inline">
+        <div class="seg" role="group" aria-label="Tło">
+          <button type="button" data-bg="transparent">Przezroczyste</button>
+          <button type="button" data-bg="#000000">Czarne</button>
+          <button type="button" data-bg="custom">Własne</button>
+        </div>
+        <input type="color" id="bgColor" value="#0e1116" aria-label="Własny kolor tła">
+      </div>
+    </section>
+
+    <section aria-labelledby="h-code">
+      <h2 id="h-code">Kod do osadzenia</h2>
+      <div class="code"><pre id="code"></pre></div>
+      <div class="actions">
+        <button class="btn primary" id="copy" type="button">Kopiuj kod</button>
+        <span class="toast" id="toast" role="status"></span>
+      </div>
+    </section>
+  </aside>
+</div>

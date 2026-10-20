@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Drafts — Dominik Gola</title>
+  <link rel="preconnect" href="https://framerusercontent.com" crossorigin>
+  <link rel="stylesheet" href="/src/styles/base.css">
+  <link rel="stylesheet" href="/src/drafts/drafts.css">
+</head>
+<body data-page="drafts" data-nav="dark">
+  <!-- @nav -->
+
+<canvas id="ambient" width="64" height="40"></canvas>
+<div id="stage" class="intro">
+  <div id="ring3d"></div>
+  <canvas id="ruler"></canvas>
+  <div id="caption"><div class="title" id="title">—</div><div class="meta" id="meta"></div></div>
+</div>
+
+<div class="panel hidden" id="panel">
+  <h1>Ustawienia <span style="color:var(--muted);font-weight:400">H — ukryj</span></h1>
+  <div class="row"><label>Wysokość karty <b id="v-size"></b></label><input id="size" type="range" min="0.15" max="0.75" step="0.005" value="0.465"></div>
+  <div class="row"><label>Proporcje (szer./wys.) <b id="v-aspect"></b></label><input id="aspect" type="range" min="0.5" max="1.6" step="0.01" value="0.79"></div>
+  <div class="row"><label>Odstęp między kartami <b id="v-gap"></b></label><input id="gap" type="range" min="0" max="0.6" step="0.01" value="0.1"></div>
+  <div class="row"><label>Perspektywa <b id="v-persp"></b></label><input id="persp" type="range" min="600" max="3000" step="10" value="1730"></div>
+    <div class="row"><label>Promień narożnika <b id="v-corner"></b></label><input id="corner" type="range" min="0" max="60" step="1" value="16"></div>
+  <div class="row"><label>Corner smoothing <b id="v-smooth"></b></label><input id="smooth" type="range" min="0" max="1" step="0.01" value="0.62"></div>
+  <div class="row"><label>Gradient tła <b id="v-amb"></b></label><input id="amb" type="range" min="0" max="0.6" step="0.01" value="0.17"></div>
+  <div class="btns">
+    <label class="file">Wgraj obrazy<input id="files" type="file" accept="image/*" multiple></label>
+  </div>
+</div>
+
+<div class="lb" id="lb">
+  <div class="lb-bg" id="lbBg"></div>
+  <div class="flyer" id="flyer"><div class="face front" id="fFront"></div><div class="face back" id="fBack"></div></div>
+  <div class="lb-ui">
+    <div class="lb-count" id="lbCount"></div>
+    <div class="lb-cap" id="lbCap"><div class="t" id="lbTitle"></div><div class="m" id="lbMeta"></div></div>
+    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous">←</button>
+    <button class="lb-btn lb-next" id="lbNext" aria-label="Next">→</button>
+    <button class="lb-btn lb-close" id="lbClose" aria-label="Close">✕</button>
+  </div>
+</div>
+
+  <script type="module" src="/src/drafts/main.js"></script>
+</body>
+</html>

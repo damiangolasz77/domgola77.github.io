@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Dominik Gola — Creative Designer &amp; Developer</title>
+  <link rel="preload" href="/src/fonts/PPNeueMontreal-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/src/fonts/PPNeueMontreal-Book.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    // before first paint: hide the headline until it rises in, decide on the preloader.
+    // TEMP (while it's being tuned): the preloader plays on every load. To show it once per session again,
+    // set ONCE_PER_SESSION = true.
+    (function () { var ONCE_PER_SESSION = false, r = document.documentElement, seen = false;
+      try { seen = ONCE_PER_SESSION && sessionStorage.getItem('dg:intro-seen') === '1'; } catch (e) {}
+      r.classList.add('hero-hidden');
+      if (!seen && !matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('is-preloading'); })();
+  </script>
+  <link rel="stylesheet" href="/src/styles/base.css">
+  <link rel="stylesheet" href="/src/footer/footer.css">
+  <link rel="stylesheet" href="/src/home/home.css">
+  <link rel="stylesheet" href="/src/drawer/drawer.css">
+</head>
+<body data-page="home" data-logo-dock>
+  <!-- @nav -->
+
+  <!-- Preloader: "Dominik Gola" → "Creative Designer & Developer", which then flies into the headline -->
+  <div class="preload" id="preload" aria-hidden="true">
+    <div class="preload__line">
+      <span class="preload__word" id="preloadName">Dominik Gola</span>
+      <span class="preload__word" id="preloadRole">Creative Designer &amp; Developer</span>
+    </div>
+  </div>
+
+  <!-- Big chrome G: spins over the hero, docks into the nav logo slot on scroll (src/home/hero-logo.js) -->
+  <div class="hero-logo" id="heroLogo" aria-hidden="true"></div>
+
+  <main>
+    <div class="intro">
+      <!-- Hero stays put (sticky); the black Works section slides over it with a little parallax -->
+      <section class="hero" id="hero" data-nav-theme="light" aria-label="Intro">
+        <div class="hero__inner" id="heroInner">
+          <!-- "/" is glued to the phrase after it (nbsp / nowrap), so lines can start with "/" but never end with one -->
+          <h1 class="hero__text">© Dominik Gola <span class="hero__glue">/&nbsp;<span class="hero__role" id="heroRole">Creative Designer &amp; Developer</span></span></h1>
+          <p class="hero__text"><span id="heroBirth">11.04.2002 (24)</span> /&nbsp;Couple Awards Winner <u>Sometimes</u> Freelance /&nbsp;Work @ FlyingBisons Warsaw, Poland /&nbsp;52°13'47"N 21°00'44"E</p>
+          <p class="hero__text"><time id="heroClock">4:43 CEST (UTC+2)</time> /&nbsp;Last&nbsp;upd:&nbsp;10.2026<br><a class="hero__link" href="#contact">Get in touch</a></p>
+          <!-- PLACEHOLDER copy, to be replaced -->
+          <div class="hero__cols">
+            <p>I design and build digital products, from apps people use every day to small experimental sites. Most of my days are spent at Flying Bisons, shaping interfaces for brands.</p>
+            <p>After hours: 3D, motion and code. This site is one of those experiments.</p>
+          </div>
+        </div>
+        <div class="hero__logo-slot" id="heroLogoSlot" aria-hidden="true"></div>
+      </section>
+
+      <section class="works" id="works" data-nav-theme="dark" aria-labelledby="worksTitle">
+        <h2 class="works__title" id="worksTitle">Works</h2>
+        <!-- Placeholder case studies (real projects to come). Each strip loops to the right and stops while hovered. -->
+        <ul class="cases" id="cases"></ul>
+        <a class="works__more" href="/drafts/">See all drafts</a>
+      </section>
+    </div>
+
+    <section class="years" data-nav-theme="dark" aria-labelledby="yearsTitle">
+      <header class="years__head">
+        <h2 class="years__title" id="yearsTitle">Project Index <img src="/src/home/assets/arrow-down-right.svg" alt="" width="52" height="53"></h2>
+        <p class="years__note">Projects I’ve worked on and co-created, on my own and with teams. Studio-labeled work was made during my time there, as part of a shared team effort.</p>
+      </header>
+      <!-- Placeholder projects and awards. Each group's header sticks while its list scrolls by. -->
+      <div class="years__groups" id="yearGroups"></div>
+    </section>
+
+    <!-- @footer -->
+  </main>
+
+  <script type="module" src="/src/home/main.js"></script>
+</body>
+</html>

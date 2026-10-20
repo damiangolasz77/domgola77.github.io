@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Drafts — Dominik Gola</title>
+  <link rel="stylesheet" href="/src/styles/base.css">
+  <link rel="stylesheet" href="/src/drafts/drafts.css">
+</head>
+<body data-page="drafts">
+  <!-- @nav -->
+
+  <!-- v3: WebGL ring of shots seen from inside (src/drafts/ring.js). v1/v2 are backed up in lab/. -->
+  <main class="dr" aria-label="Drafts">
+    <div class="dr__gl" id="gl"></div>
+    <p class="dr__title" id="drTitle" aria-live="polite"></p>
+    <p class="dr__meta" id="drMeta"></p>
+    <p class="dr__count" id="drCount"></p>
+    <!-- full-screen mode: previous / next shot without leaving full screen -->
+    <button class="dr__arrow dr__arrow--prev" id="drPrev" type="button" aria-label="Previous shot">
+      <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="dr__arrow dr__arrow--next" id="drNext" type="button" aria-label="Next shot">
+      <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="pblur" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <canvas class="dr__ruler" id="ruler" aria-hidden="true"></canvas>
+  </main>
+
+  <script type="module" src="/src/drafts/main.js"></script>
+</body>
+</html>

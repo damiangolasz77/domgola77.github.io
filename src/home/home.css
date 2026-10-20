@@ -1,0 +1,200 @@
+/* Home — built from the Figma frame "To export" (1512 px MacBook frame).
+   --u is one Figma pixel at the current width, so the layout scales like the design. */
+:root {
+  --u: calc(100vw / 1512);
+  --blue: #0051f8;
+  --gut: 24px;                               /* content gutter (nav keeps its own 16 px) */
+  --hero-fs: clamp(22px, calc(64 * var(--u)), 120px);
+  --line: #2c2c2c;
+  --mute-on-dark: #9b9b9b;
+}
+body { background: #fff; overflow-x: clip; }
+html.is-preloading { overflow: hidden; }
+
+/* ---------- preloader ---------- */
+.preload {
+  position: fixed; inset: 0; z-index: 60; background: #fff;
+  pointer-events: none;
+}
+.preload__line {
+  position: fixed; left: 0; top: 0; transform-origin: 0 0;
+  height: 1.0625em; overflow: hidden;                     /* mask for the word swap */
+  font: 400 var(--hero-fs)/1.0625 var(--font-display); letter-spacing: -0.005em;
+  color: var(--ink); white-space: nowrap; text-align: center;
+  opacity: 0;                                              /* placed by JS first */
+}
+.preload__word { position: absolute; left: 0; right: 0; top: 0; transform: translateY(105%); }
+html:not(.is-preloading) .preload { display: none; }
+
+/* ---------- hero ---------- */
+.intro { position: relative; --hero-h: calc(613 * var(--u)); }
+.hero {
+  position: sticky; top: 0; z-index: 1;
+  height: 100vh; height: 100svh; overflow: hidden;
+  background: #fff; color: #000;
+}
+.hero__inner { padding: max(calc(105 * var(--u)), 96px) var(--gut) 0; will-change: transform; }
+.hero__text {
+  margin: 0; max-width: calc(1355 * var(--u));
+  font: 400 var(--hero-fs)/1.0625 var(--font-display); letter-spacing: -0.005em;
+}
+.hero__role { color: var(--blue); white-space: nowrap; }
+.hero__glue { white-space: nowrap; }
+#heroClock .dg { display: inline-block; width: var(--dw, .62em); text-align: center; }   /* mm:ss digits in widest-digit boxes: live seconds don't move the line (main.js) */
+.hero__text .sl-start .sl { display: none; }                 /* no line starts with "/" (src/home/intro.js tidySlashes) */
+.hero__text u, .hero__link { text-decoration: underline; text-decoration-thickness: from-font; text-underline-position: from-font; text-decoration-skip-ink: none; }
+.hero__link { color: inherit; transition: color .3s; }
+.hero__link:hover { color: var(--blue); }
+.hero__text .w { display: inline-block; }
+/* words are inline-blocks, which don't inherit the parent's underline — draw it on each word */
+.hero__text u .w, .hero__link .w { text-decoration: underline; text-decoration-thickness: from-font; text-underline-position: from-font; text-decoration-skip-ink: none; }
+html.is-preloading .hero__role, html.hero-hidden .hero__role { visibility: hidden; }
+html.hero-hidden .hero__text { opacity: 0; }        /* until the words rise in (src/home/intro.js) */
+.hero__logo-slot {                                         /* geometry only: where the big G sits — Figma 287 × 327, +15 %, same centre */
+  position: absolute; pointer-events: none;
+  width: calc(330 * var(--u)); height: calc(376 * var(--u));
+  left: calc(50% - 12.5 * var(--u) - 165 * var(--u)); top: calc(187.5 * var(--u));
+}
+/* two placeholder paragraphs under the headline */
+.hero__cols {                                              /* placeholder copy */
+  display: grid; grid-template-columns: repeat(2, minmax(0, calc(436 * var(--u)))); gap: calc(32 * var(--u)); align-items: start;   /* 436 at 20 px → 4 + 2 lines */
+  margin-top: max(calc(64 * var(--u)), 40px);
+}
+.hero__cols p { margin: 0; font: 400 clamp(15px, calc(20 * var(--u)), 28px)/1.2 var(--font-display); letter-spacing: .01em; color: #000; }   /* Figma: 20/24, +0.2 px */
+/* desktop (sticky hero): the paragraphs sit on the bottom of the visible hero — same gap below them
+   (to where Works starts) as on the left */
+.intro:not(.is-flow) .hero__inner { position: relative; height: 100%; }
+.intro:not(.is-flow) .hero__cols { position: absolute; left: var(--gut); bottom: calc(100vh - var(--hero-h) + var(--gut)); bottom: calc(100svh - var(--hero-h) + var(--gut)); margin: 0; }
+html.hero-hidden .hero__cols { opacity: 0; }
+
+/* phones / short screens (set by src/home/main.js): the hero is a normal block that can be taller than
+   the screen, Works simply follows it */
+.intro.is-flow .hero { position: relative; height: auto; min-height: 100vh; min-height: 100svh; overflow: visible; }
+.intro.is-flow .hero__inner { will-change: auto; }
+.intro.is-flow .works { margin-top: 0; }
+
+/* the big G (positioned + scaled by src/home/hero-logo.js) */
+.hero-logo { position: fixed; left: 0; top: 0; z-index: 45; pointer-events: none; transform-origin: 0 0; will-change: transform; }
+.hero-logo canvas { display: block; width: 100%; height: 100%; opacity: 0; transform: scale(.6) rotate(-8deg); transition: opacity .9s var(--ease-out-expo), transform 1.4s var(--ease-out-expo); }
+.hero-logo.is-in canvas { opacity: 1; transform: none; }
+
+/* ---------- works (covers the hero) ---------- */
+.works {
+  position: relative; z-index: 2;
+  margin-top: calc(var(--hero-h) - 100vh); margin-top: calc(var(--hero-h) - 100svh);
+  background: #000; color: #fff;
+  padding: calc(48 * var(--u)) 0 calc(100 * var(--u));
+}
+.works__title {
+  margin: 0 var(--gut) max(calc(43 * var(--u)), 24px);
+  font: 400 clamp(40px, calc(72 * var(--u)), 136px)/0.9444 var(--font-display); letter-spacing: -0.005em;
+}
+.cases { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(40px, calc(72 * var(--u)), 104px); }   /* more air between case studies (Figma 40) */
+.case { min-width: 0; --tile-h: clamp(130px, calc(231 * var(--u)), 360px); --tile-gap: clamp(10px, calc(20 * var(--u)), 28px); }
+.case__strip { height: var(--tile-h); overflow: hidden; }
+.case__track { display: flex; gap: var(--tile-gap); height: 100%; width: max-content; will-change: transform; }
+.case__tile { flex: none; height: 100%; width: calc(var(--tile-h) * var(--r, 1)); border-radius: 8px; overflow: hidden; background: #111; }   /* --r: the media's ratio */
+.case__tile img, .case__tile video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.case__meta { padding: 16px var(--gut); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.case__text { min-width: 0; }
+.case__soon { flex: none; cursor: default; }                  /* nav pill look (size, colour on dark) */
+.case__soon:hover { border-radius: 8px; }
+.case__more { flex: none; border: 0; cursor: pointer; }      /* opens the case drawer (src/drawer/) */
+/* button under the case studies → Drafts (same look as the footer's CTA) */
+.works__more {
+  display: flex; width: max-content; margin: clamp(40px, calc(64 * var(--u)), 96px) auto 0;   /* centred */
+  align-items: center; height: 42px; padding: 0 18px;
+  border-radius: 8px; background: #fff; color: #000; text-decoration: none;
+  font: 400 15px/16.8px var(--font-mono); text-transform: uppercase;   /* IBM Plex like the pills, a bit lower than Figma's 51 px */
+  transition: border-radius .7s var(--ease-out-expo);
+}
+.works__more:hover { border-radius: 21px; }
+.case__title { margin: 0; font: 500 20px/26px var(--font-display); }
+.case__sub { margin: 0; font: 400 18px/26.1px var(--font-display); letter-spacing: .1px; color: var(--mute-on-dark); }
+
+/* ---------- 6+ years of work ---------- */
+.years { position: relative; z-index: 2; background: #000; color: #fff; padding: 44px var(--gut) clamp(64px, calc(96 * var(--u)), 140px); }
+.years__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; }
+.years__title {
+  margin: 0; display: flex; align-items: center; gap: 12px;
+  font: 400 clamp(36px, calc(56 * var(--u)), 104px)/1.1 var(--font-display); letter-spacing: -0.0114em;   /* Regular (was Book) */
+}
+.years__title img { width: .93em; height: auto; transform: rotate(90deg) scaleY(-1); }
+.years__note { margin: 0; width: 28.5%; min-width: 312px; font: 400 clamp(15px, calc(20 * var(--u)), 28px)/1.2 var(--font-display); letter-spacing: .01em; }   /* same type as the hero paragraphs */
+
+.group__head {
+  position: sticky; top: 0; z-index: 1;                    /* Personal, then With Flying Bisons */
+  display: flex; align-items: center; gap: 12px;
+  padding: 64px 0 16px; background: #000;
+}
+/* the stuck header ends in a divider, so rows disappear exactly at the line (the year blocks' own top
+   rule takes over once the header has moved on) */
+.group__head { border-bottom: 1px solid var(--line); }
+/* rows sliding under the stuck header fade out below its divider */
+.group__head::after {
+  content: ""; position: absolute; left: 0; right: 0; top: calc(100% + 1px); height: 72px; pointer-events: none;   /* +1px: start under the divider, not on it */
+  background: linear-gradient(to bottom, #000, rgba(0, 0, 0, 0));
+  opacity: 0; transition: opacity .25s;
+}
+.group.is-under .group__head::after { opacity: 1; }
+.group__head + .yearblock { border-top: 0; }
+.group__icon { width: 24px; height: 24px; border-radius: 8px; background: #fff; flex: none; }
+.group__icon--img { display: block; object-fit: cover; }        /* group logos instead of the white square: Personal = favicon G, With Flying Bisons = FB logo */
+.group__title { margin: 0; font: 400 28px/36.4px var(--font-display); letter-spacing: -0.01em; }
+.yearblock { border-top: 1px solid var(--line); }
+.yearblock + .yearblock { margin-top: 24px; }
+.row {
+  display: grid; grid-template-columns: 15% minmax(0, 1fr) minmax(0, 1fr);   /* year (as before) | brand | what we did — the rest split 50/50 */ align-items: center;
+  min-height: 50px; padding: 12px 0;
+  font: 400 18px/26.1px var(--font-display);   /* Regular — the whole section is Regular now (was Book) */
+}
+.row__year, .row__work { color: var(--mute-on-dark); }
+.row__project { display: flex; align-items: flex-start; gap: 8px; }
+a.row { color: inherit; text-decoration: none; }               /* linked records (content.js LINKS) open in a new tab */
+.row__go { color: var(--mute-on-dark); opacity: 0; transform: translate(-4px, 2px); transition: opacity .3s, transform .5s var(--ease-out-expo); }
+.row__logo { flex: none; width: 18px; height: 18px; margin-top: calc((1lh - 18px) / 2); }   /* his 18 px logo squares; unlike the blue square they don't change on hover */
+/* hover: a soft rounded plate slides in behind the record, the blue square rounds into a dot, the greys light up */
+.row { position: relative; isolation: isolate; }               /* own stacking context: stays under the sticky group header */
+.row::after {
+  content: ""; position: absolute; inset: 2px -14px; z-index: -1; border-radius: 14px;
+  background: rgba(255, 255, 255, .07); opacity: 0; transform: scale(.985, .8);
+  transition: opacity .35s var(--ease-out-expo), transform .6s var(--ease-out-expo);
+}
+.row__year, .row__work, .row__project { transition: color .35s, transform .6s var(--ease-out-expo); }
+@media (hover: hover) {
+  .row:hover::after { opacity: 1; transform: none; }
+  .row:hover .row__year, .row:hover .row__work { color: #fff; }
+  .row:hover .row__project { transform: translateX(6px); }
+  .row--link:hover .row__go { opacity: 1; transform: none; }
+}
+
+@media (max-width: 760px) {
+  :root { --hero-fs: 6.6vw; --gut: 16px; }
+  .hero__inner { padding-top: 88px; }
+  /* phones: big G in the middle of the screen (over the copy, like on desktop) */
+  .hero__logo-slot { width: 57.6vw; height: 65.6vw; left: 21.2vw; top: calc(50% - 32.8vw); }   /* −20 % */
+  .hero__cols { grid-template-columns: 1fr; gap: 12px; margin-top: 32px; }
+  .hero__cols { width: 70vw; }                                /* phones: paragraphs on 70 % of the width */
+  .hero__cols p { font-size: 16px; }
+  .intro.is-flow .hero { padding-bottom: 40px; }
+  .works { padding-top: 32px; }
+  .case { --tile-h: 195px; }                                    /* phones: shots ~50 % bigger */
+  .case__strip { touch-action: pan-y; }                        /* phones: sideways swipes move the strip (sections.js), vertical ones scroll the page */
+  .works__title { margin-bottom: 20px; }
+  .case__meta { padding: 12px var(--gut); }
+  .case__title { font-size: 18px; line-height: 24px; }
+  .case__sub { font-size: 16px; line-height: 22px; }
+  .years { padding-top: 32px; }
+  .years__title { font-size: 34px; }
+  .years__note { min-width: 0; font-size: 16px; color: var(--mute-on-dark); }
+  .group__head { padding: 72px 0 12px; }
+  .group__title { font-size: 24px; line-height: 30px; }
+  .row { font-size: 16px; line-height: 22px; min-height: 0; padding: 10px 0; }
+  .row__project { font-weight: 500; }                          /* phones: brand names one weight up (Medium) */
+  .years__head { flex-direction: column; }
+  .years__note { width: 90vw; }                               /* phones: the note may run 90 % of the screen wide */
+  .row { grid-template-columns: 77px 1fr; row-gap: 2px; }   /* +20 % */
+  .years, .years__note, .row, .group__title { letter-spacing: .012em; }   /* phones: a touch looser at small sizes */
+  .row__work { grid-column: 2; padding-left: 26px; }         /* under the brand, aligned to its text (logo 18 + gap 8) */
+}
+

@@ -1,0 +1,28 @@
+<nav class="nav" aria-label="Main">
+  <a class="nav__logo" href="/" aria-label="Dominik Gola, home" data-logo3d>
+    <img src="/src/nav/logo-static.webp" alt="" width="52" height="59">
+  </a>
+  <div class="nav__pills" id="navPills">
+    <a class="pill" href="/" data-nav-id="home">Home</a>
+    <a class="pill" href="/about/" data-nav-id="about">About</a>
+    <a class="pill" href="/drafts/" data-nav-id="drafts">Drafts</a>
+    <a class="pill" href="mailto:by.domgola@gmail.com" data-nav-id="contact">Contact</a>
+    <!-- phones: the socials live in the menu sheet (on desktop they sit on the right, in .nav__end) -->
+    <a class="pill nav__m-only" href="https://www.instagram.com/by.domgola/" target="_blank" rel="noopener">Instagram</a>
+    <a class="pill nav__m-only" href="https://www.linkedin.com/in/dominikgola/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+  <a class="nav__big" href="/" tabindex="-1" aria-hidden="true">Dom Gola</a>
+  <div class="nav__end">
+    <button class="pill nav__menu" type="button" aria-expanded="false" aria-controls="navPills">Menu</button>
+    <a class="pill nav__d-only" href="https://www.instagram.com/by.domgola/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+    <a class="pill nav__d-only" href="https://www.linkedin.com/in/dominikgola/" target="_blank" rel="noopener" aria-label="LinkedIn">LD</a>
+    <a class="pill pill--contact" href="mailto:by.domgola@gmail.com">Contact</a>
+    <button class="pill pill--icon" type="button" data-sound-toggle aria-pressed="true" aria-label="Sound">
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M1.45898 6.45833H5.00065L10.209 3.125V16.875L5.00065 13.5417H1.45898V6.45833Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="snd-wave" d="M16.0405 3.95996C17.5862 5.5057 18.5423 7.64112 18.5423 9.99983C18.5423 12.3586 17.5862 14.494 16.0405 16.0397M13.2416 6.75944C14.071 7.58886 14.584 8.73467 14.584 10.0003C14.584 11.266 14.071 12.4118 13.2416 13.2412" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="snd-off" d="M13.75 7.5L18.75 12.5M18.75 7.5L13.75 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</nav>

@@ -1,0 +1,109 @@
+/* Case study drawer (src/drawer/drawer.js) — Figma personal-brand node 127:633 (984 wide frame):
+   off-white sheet, 8 px corners, 20 px padding; two columns (labels | content, content starts at the
+   middle), 1 px #e1e1e1 dividers, Neue Montreal Medium headings, IBM Plex Mono 12 px uppercase lists.
+   Placement: right side, 70 % of the screen width, a 10 px gap to the screen edges (like a Drafts shot).
+   Closes on a click outside or Esc; a × only on phones. Thin grey custom scrollbar. */
+:root {
+  --dw-bg: #fdfdf9; --dw-ink: #1f1f1f; --dw-mute: #666; --dw-line: #e1e1e1;
+  --dw-gap: 10px; --dw-w: 70vw; --dw-pad: 20px;
+  --dw-in: cubic-bezier(.16, 1, .3, 1); --dw-out: cubic-bezier(.7, 0, .84, 0);
+}
+html.dw-lock, html.dw-lock body { overflow: hidden; }
+
+.dw-root { position: fixed; inset: 0; z-index: 70; }
+.dw-backdrop {
+  position: absolute; inset: 0; background: rgba(0, 0, 0, .72); cursor: pointer;
+  opacity: 0; transition: opacity .5s ease;
+}
+.dw {
+  position: absolute; top: var(--dw-gap); right: var(--dw-gap); bottom: var(--dw-gap); width: var(--dw-w);
+  background: var(--dw-bg); color: var(--dw-ink); border-radius: 8px; overflow: hidden; outline: none;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .28);
+  transform: translate3d(calc(100% + var(--dw-gap) + 40px), 0, 0);
+  transition: transform .95s var(--dw-in);
+}
+.dw-root.is-open .dw-backdrop { opacity: 1; }
+.dw-root.is-open .dw { transform: none; }
+.dw-root.is-closing .dw-backdrop { opacity: 0; transition: opacity .5s ease .08s; }
+.dw-root.is-closing .dw { transition: transform .6s var(--dw-out); }
+
+.dw__scroll { height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: var(--dw-pad) var(--dw-pad) 48px; }
+/* a plain, quiet grey bar */
+.dw__scroll { scrollbar-width: thin; scrollbar-color: #cfcfc9 transparent; }
+.dw__scroll::-webkit-scrollbar { width: 10px; }
+.dw__scroll::-webkit-scrollbar-track { background: transparent; }
+.dw__scroll::-webkit-scrollbar-thumb { background: #d4d4ce; border-radius: 5px; border: 3px solid var(--dw-bg); }
+.dw__scroll::-webkit-scrollbar-thumb:hover { background: #b9b9b3; }
+/* content rises in a beat after the sheet */
+.dw__scroll > * { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .9s var(--dw-in); }
+.dw-root.is-open .dw__scroll > * { opacity: 1; transform: none; }
+.dw-root.is-open .dw__scroll > :nth-child(1) { transition-delay: .18s; }
+.dw-root.is-open .dw__scroll > :nth-child(2) { transition-delay: .26s; }
+.dw-root.is-open .dw__scroll > :nth-child(3) { transition-delay: .34s; }
+.dw-root.is-open .dw__scroll > :nth-child(n+4) { transition-delay: .42s; }
+/* closing: the text stays put and leaves with the sheet (it used to sink back down) */
+.dw-root.is-closing .dw__scroll > * { opacity: 1; transform: none; transition: none; }
+
+/* × — phones only (on desktop a click outside closes it) */
+.dw__close { display: none; }
+@media (max-width: 760px) {
+  .dw__close {
+    position: absolute; top: 14px; right: 14px; z-index: 2; width: 34px; height: 34px; padding: 0;   /* level with the title */
+    display: grid; place-items: center; border: 0; border-radius: 8px; cursor: pointer;
+    background: rgba(31, 31, 31, .07); color: var(--dw-ink);
+  }
+  .dw__close svg { width: 16px; height: 16px; }
+  .dw__intro { padding-right: 0; }
+}
+
+/* two unequal columns: a narrower label column | a wider content column (on request — not Figma's halves) */
+.dw__head, .dw__sec { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); column-gap: 20px; }
+.dw__h { margin: 0; font: 500 28.5px/34.3px var(--font-display); color: var(--dw-ink); }
+.dw__head { min-height: clamp(384px, 55vh, 562px); padding-top: 12px; border-top: 1px solid var(--dw-line); }   /* +20 % room between the top and bottom blocks; divider like the other sections */
+.dw__intro { display: flex; flex-direction: column; min-width: 0; }
+.dw__title { margin: 0; font: 500 44.5px/1.19 var(--font-display); letter-spacing: -0.4px; }
+.dw__lead { margin: 8px 0 0; font: 400 20px/26px var(--font-display); letter-spacing: .3px; color: #000; }
+.dw__foot { margin: auto 0 0; padding-top: 32px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; }
+.dw__mono { list-style: none; margin: 0; padding: 0; font: 500 12px/14.64px var(--font-mono); letter-spacing: .36px; text-transform: uppercase; color: var(--dw-ink); }
+.dw__meta { text-align: right; }
+
+.dw__sec { margin-top: 11px; padding: 12px 0 64px; border-top: 1px solid var(--dw-line); }
+.dw__sec > :last-child { grid-column: 2; }
+.dw__items { display: flex; flex-direction: column; gap: 20px; letter-spacing: .4px; }
+.dw__item h4 { margin: 0 0 2px; font: 500 20px/26px var(--font-display); color: #000; }
+.dw__item p { margin: 0; font: 400 16px/22px var(--font-display); color: var(--dw-mute); }
+.dw__sec > .dw__mono { padding-top: 10px; }
+
+/* phones: a bottom sheet — flush with the bottom and the sides, 90 % of the screen high, rounded top,
+   a grab handle to drag it down and away (drawer.js); no kind label, no top divider, no scrollbar */
+.dw__grab { display: none; }
+@media (max-width: 760px) {
+  :root { --dw-pad: 16px; }
+  .dw {
+    top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 90vh; height: 90svh;
+    border-radius: 14px 14px 0 0;
+    transform: translate3d(0, calc(100% + 40px), 0);             /* rises from the bottom */
+  }
+  .dw.is-dragging { transition: none !important; }
+  .dw-root.is-open .dw.is-settling { transition: transform .5s var(--dw-in); }
+  .dw__grab {
+    display: block; position: absolute; top: 0; left: 0; right: 0; height: 30px; z-index: 1; background: var(--dw-bg);   /* content scrolls away under it */
+    touch-action: none; cursor: grab;
+  }
+  .dw__grab::before { content: ""; position: absolute; left: 50%; top: 10px; width: 40px; height: 4px; margin-left: -20px; border-radius: 2px; background: #d4d4ce; }
+  .dw__scroll { padding-top: 34px; scrollbar-width: none; }
+  .dw__scroll::-webkit-scrollbar { display: none; }
+  .dw__kind { display: none; }
+  .dw__head { border-top: 0; min-height: 0; padding-top: 0; }
+  .dw__head, .dw__sec { grid-template-columns: 1fr; }
+  .dw__title { font-size: 36px; padding-right: 44px; }          /* room for the × */
+  .dw__lead { font-size: 18px; line-height: 24px; }
+  .dw__foot { padding-top: 28px; }
+  .dw__h { font-size: 28px; line-height: 34px; }                  /* About / Credits: a bit bigger */
+  .dw__sec { padding-bottom: 40px; row-gap: 22px; }               /* same title → content space in both */
+  .dw__sec > .dw__mono { padding-top: 0; }
+  .dw__sec > :last-child { grid-column: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dw, .dw-backdrop, .dw__scroll > * { transition: none !important; }
+}

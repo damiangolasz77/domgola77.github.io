@@ -1,0 +1,103 @@
+/* About content (Figma "About" frame, node 115:11281). Slides over the 3D scene once the objects have
+   landed; the "About" title stays put and the blocks stack over each other like cards (src/about/stack.js).
+   Sizes scale from the 1512 frame (--u). Greys use #9b9b9b like Home's "6+ years". */
+:root { --ab-bg: #000;   /* same black as the shared footer */ --ab-line: #2c2c2c; --ab-mute: #9b9b9b; --ab-head: max(calc(184 * var(--u)), 150px); --ab-gap: 24px; /* divider → content (Figma) */ }
+
+.ab {
+  position: relative; z-index: 2;
+  margin-top: -100vh; margin-top: -100svh;                  /* rises over the last screen of the track */
+  background: var(--ab-bg); color: #fff;
+  padding-bottom: calc(80 * var(--u));
+}
+.ab__head {
+  position: sticky; top: 0; z-index: 10;                     /* the title stays, the blocks slide under it */
+  height: var(--ab-head); padding: max(calc(84 * var(--u)), 72px) var(--gut) 0;
+  background: var(--ab-bg);
+}
+.ab__title { margin: 0; font: 400 clamp(40px, calc(72 * var(--u)), 136px)/0.9444 var(--font-display); letter-spacing: -0.005em; }
+
+.ab__block {
+  position: sticky; top: var(--stick, var(--ab-head));       /* --stick: set per block by stack.js (tall blocks scroll first) */
+  isolation: isolate;                                        /* a later card paints over an earlier one, bars included */
+  display: grid; grid-template-columns: calc(544 * var(--u)) minmax(0, 1fr); column-gap: calc(30 * var(--u));
+  padding: 0 var(--gut) 64px;
+  background: var(--ab-bg);
+  box-shadow: 0 -40px 80px -20px rgba(0, 0, 0, .9);           /* each card casts a little shade on the one it covers */
+}
+/* The two top dividers, sticky right under "About": while a tall card is still scrolling they stay
+   pinned and the content disappears exactly at the line (the title band above is opaque). */
+.ab__bar {
+  grid-column: 1 / -1; grid-row: 1;
+  position: sticky; top: var(--ab-head); z-index: 2;
+  display: grid; grid-template-columns: subgrid;
+  height: 1px;
+}
+.ab__bar span { border-top: 1px solid var(--ab-line); }
+/* while a tall card's content slides under the divider it fades out there, like the bottom of a covered card */
+.ab__bar span:last-child { position: relative; }
+.ab__bar span:last-child::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 72px; pointer-events: none;
+  background: linear-gradient(to bottom, var(--ab-bg), rgba(0, 0, 0, 0));
+  opacity: 0; transition: opacity .25s;
+}
+.ab__block.is-under .ab__bar span:last-child::after { opacity: 1; }
+.ab__label, .ab__body { grid-row: 2; padding-top: var(--ab-gap); }
+.ab__label {
+  grid-column: 1; align-self: start;
+  position: sticky; top: var(--ab-head); z-index: 2;
+  margin: 0; font: 400 20px/30px var(--font-display); letter-spacing: .3px; color: var(--ab-mute);
+}
+.ab__body {
+  grid-column: 2; max-width: 730px; display: flex; flex-direction: column; gap: 30px;
+  font: 400 20px/30px var(--font-display); letter-spacing: .4px;
+}
+.ab__body p { margin: 0; }
+.ab__lead { font-size: 24px; letter-spacing: .3px; }
+
+.ab__stats { display: flex; gap: 44px; margin: 0; }
+.ab__stats div { width: 173px; display: flex; flex-direction: column; gap: 8px; }
+.ab__stats dt { font: 400 66px/64px var(--font-display); letter-spacing: -0.005em; }
+.ab__stats dd { margin: 0; }
+
+.ab__list { display: grid; grid-template-columns: repeat(2, 356px); gap: 10px; margin-top: 16px; }
+.ab__list ul { list-style: none; margin: 0; padding: 0; line-height: 34px; }
+.ab__list li::before { content: "•\00a0\00a0"; }
+
+.ab__jobs { list-style: none; margin: 16px 0 0; padding: 0; width: min(890px, 100%); max-width: none; }
+.ab__body:has(.ab__jobs) { max-width: 890px; }
+.ab__body:has(.ab__jobs) > p { max-width: 720px; }
+.ab__jobs li { display: grid; grid-template-columns: 239px 237px 1fr; column-gap: 20px; padding: 18px 0; border-top: 1px solid var(--ab-line); font-size: 18px; line-height: 27px; letter-spacing: .3px; }
+.ab__role, .ab__when { color: var(--ab-mute); }
+.ab__when { text-align: right; white-space: nowrap; }
+
+.ab__ach { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 46px; }
+.ab__ach li { display: flex; gap: 20px; }
+.ab__ach img { width: 174px; height: 174px; flex: none; border-radius: 8px; object-fit: cover; background: #111; }
+.ab__ach div { display: flex; flex-direction: column; min-width: 0; max-width: 526px; }
+.ab__ach h4 { margin: 0 0 10px; font: 400 22px/30px var(--font-display); letter-spacing: .4px; }
+.ab__ach p { font-size: 18px; line-height: 25px; letter-spacing: .3px; }
+.ab__ach time { margin-top: auto; padding-top: 16px; color: var(--ab-mute); }
+
+@media (max-width: 900px) {
+  .ab__block { grid-template-columns: 1fr; padding-bottom: 48px; }
+  .ab__bar span:last-child { display: none; }
+  .ab__bar span:first-child { position: relative; }
+  .ab__bar span:first-child::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 56px; pointer-events: none; background: linear-gradient(to bottom, var(--ab-bg), rgba(0, 0, 0, 0)); opacity: 0; transition: opacity .25s; }
+  .ab__block.is-under .ab__bar span:first-child::after { opacity: 1; }
+  :root { --ab-gap: 16px; }
+  .ab__label { position: static; }
+  .ab__body { grid-column: 1; grid-row: 3; padding-top: 12px; gap: 20px; font-size: 17px; line-height: 25px; letter-spacing: .2px; }
+  .ab__lead { font-size: 20px; line-height: 27px; }
+  .ab__stats dt { font-size: 48px; line-height: 48px; }
+  .ab__stats div { width: auto; }
+  .ab__list { grid-template-columns: 1fr 1fr; margin-top: 0; }
+  .ab__list ul { line-height: 30px; }
+  .ab__jobs li { grid-template-columns: 1fr auto; row-gap: 2px; padding: 14px 0; }
+  .ab__role { grid-column: 1; grid-row: 2; }
+  .ab__when { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 15px; }
+  .ab__ach li { flex-direction: column; gap: 14px; }            /* photo first, the text under it */
+  .ab__ach img { width: 40vw; height: 40vw; }                   /* square, 40 % of the screen width */
+  .ab__ach h4 { font-size: 18px; line-height: 24px; margin-bottom: 6px; font-weight: 500; }   /* phones: titles one weight up (Medium) */
+  .ab__ach p { font-size: 15px; line-height: 21px; }
+  .ab__ach time { font-size: 15px; padding-top: 8px; }
+}

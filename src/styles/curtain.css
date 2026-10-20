@@ -1,0 +1,10 @@
+/* Page-transition blind (src/curtain.js). Sits above everything, nav included. */
+.curtain {
+  position: fixed; inset: 0; z-index: 1000;
+  background: #0b0b0c;
+  transform: translateY(100%);
+  pointer-events: none;
+  will-change: transform;
+}
+/* arriving through the blind: covered from the very first paint (class set in <head>) */
+.curtain-covered .curtain { transform: translateY(0); }

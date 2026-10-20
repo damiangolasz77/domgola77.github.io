@@ -1,0 +1,68 @@
+/* Shared footer + outro (Home, About) — from the Figma "To export" frame. */
+:root { --u: calc(100vw / 1512); --blue: #0051f8; --gut: 24px; }
+@media (max-width: 760px) { :root { --gut: 16px; } }
+/* ---------- footer ---------- */
+.footer {
+  position: relative; z-index: 2; background: #000; color: #fff;
+  min-height: max(calc(470 * var(--u)), 380px);
+  padding: 0 var(--gut) var(--gut);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.footer__top { display: flex; justify-content: space-between; gap: 32px; }
+.footer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; border-top: 1px solid rgba(255, 255, 255, .23); }   /* top divider: full width, edge to edge */
+.footer__claim {
+  margin: 0; padding: 32px 0; max-width: calc(1105 * var(--u)); min-width: min(100%, 560px);
+  font: 400 clamp(34px, calc(56 * var(--u)), 104px)/1.1 var(--font-display); letter-spacing: -0.005em; text-wrap: balance;
+}
+.footer__cta {
+  display: inline-flex; align-items: center; height: 42px; padding: 0 18px;
+  border-radius: 8px; background: #fff; color: #000; text-decoration: none;
+  font: 400 15px/16.8px var(--font-mono); text-transform: uppercase;   /* IBM Plex like the pills, a bit lower than Figma's 51 px */
+  transition: border-radius .7s var(--ease-out-expo);
+}
+.footer__cta:hover { border-radius: 21px; }
+.clock { margin: 0; padding-top: 42px; flex: none; display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100px; }
+.clock__face { display: block; width: 100px; height: 100px; overflow: visible; }
+.clock__ticks line { stroke: #fff; }
+.clock__hand { stroke-linecap: round; transform-origin: 50px 50px; }
+.clock__hand--h { stroke: #8c8c8c; stroke-width: 2; }
+.clock__hand--m { stroke: #8c8c8c; stroke-width: 1.5; }
+.clock__hand--s { stroke: #ff0000; stroke-width: .75; }
+.clock__label { font: 400 10px/17px var(--font-display); color: #7a7a7a; }
+.footer__nav { display: flex; justify-content: space-between; gap: var(--pill-gap); flex-wrap: wrap; margin-top: 48px; }
+.footer__pills { display: flex; gap: var(--pill-gap); flex-wrap: wrap; }
+
+/* ---------- outro: revealed from under the footer ---------- */
+.outro {
+  position: sticky; bottom: 0; z-index: 0;                  /* sits under the footer, the footer slides off it */
+  height: 100vh; height: 100svh; overflow: hidden;
+  visibility: hidden;                                        /* only while it is being uncovered (outro.js) — it would show through transparent pages otherwise */
+  background: var(--blue);
+}
+.outro__inner { position: absolute; inset: 0; will-change: transform; }
+.outro__marquee {
+  position: absolute; left: 0; bottom: calc(-20 * var(--u));     /* Figma: the line sits on the bottom edge, descenders cut */
+  display: flex; width: max-content; white-space: nowrap;
+  font: 350 max(calc(401 * var(--u)), 120px)/1.2 var(--font-display); letter-spacing: -0.05em; color: #020202;
+  animation: outro-marquee 38s linear infinite; animation-play-state: paused;
+}
+.outro.is-live .outro__marquee { animation-play-state: running; }
+@keyframes outro-marquee { to { transform: translateX(-50%); } }
+.outro__logo { position: absolute; left: 0; top: 0; width: max(calc(177 * var(--u)), 90px); height: auto; pointer-events: none; user-select: none; will-change: transform; }
+
+.outro.is-live { visibility: visible; }
+
+@media (max-width: 760px) {
+  .footer { min-height: 0; padding-bottom: 16px; }
+  .footer__claim { font-size: 32px; padding: 28px 0 24px; }
+  .footer__nav { margin-top: 56px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .outro__marquee { font-size: 34vw; bottom: -4vw; }
+  .outro__logo { width: 30vw; }
+  .footer__top { flex-direction: column; gap: 0; }
+  .footer { position: relative; }
+  .clock { position: absolute; right: var(--gut); bottom: var(--gut); padding: 0; }   /* phones: bottom right, same gap to both edges */
+  .footer__nav { padding-right: 116px; }                     /* the pills wrap left of the clock */
+}
+@media (prefers-reduced-motion: reduce) {
+  .outro__marquee { animation: none; }
+}

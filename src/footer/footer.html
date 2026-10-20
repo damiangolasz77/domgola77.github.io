@@ -1,0 +1,42 @@
+<!-- Shared footer + the outro revealed from under it (Home, About), injected by the shared-nav plugin in vite.config.js -->
+<footer class="footer" id="contact" data-nav-theme="dark">
+  <div class="footer__top">
+    <div>
+      <p class="footer__claim">Let’s explore how we can help you achieve your goals.</p>
+      <a class="footer__cta" href="mailto:by.domgola@gmail.com">Get in touch</a>
+    </div>
+    <!-- Warsaw time (Figma: 100 px analog clock + "PL"); ticks and hands are drawn by src/footer/clock.js -->
+    <figure class="clock" id="footerClock" aria-label="Time in Warsaw">
+      <svg class="clock__face" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true">
+        <g class="clock__ticks"></g>
+        <line class="clock__hand clock__hand--h" x1="50" y1="50" x2="50" y2="27.5" />
+        <line class="clock__hand clock__hand--m" x1="50" y1="50" x2="50" y2="15" />
+        <line class="clock__hand clock__hand--s" x1="50" y1="50" x2="50" y2="7.5" />
+        <circle cx="50" cy="50" r="1.5" fill="#ff0000" />
+      </svg>
+      <figcaption class="clock__label">PL</figcaption>
+    </figure>
+  </div>
+  <nav class="footer__nav" aria-label="Footer">
+    <div class="footer__pills">
+      <a class="pill pill--on-dark" href="/">Home</a>
+      <a class="pill pill--on-dark" href="/about/">About</a>
+      <a class="pill pill--on-dark" href="/drafts/">Drafts</a>
+    </div>
+    <div class="footer__pills">
+      <a class="pill pill--on-dark" href="https://www.instagram.com/by.domgola/" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill pill--on-dark" href="https://www.linkedin.com/in/dominikgola/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="pill pill--on-dark" href="mailto:by.domgola@gmail.com">Contact</a>
+    </div>
+  </nav>
+</footer>
+
+<!-- Revealed from under the footer: endless "Creative Designer - Dominik Gola" + a bouncing G -->
+<section class="outro" id="outro" data-nav-theme="light" aria-label="Creative Designer — Dominik Gola">
+  <div class="outro__inner" id="outroInner">
+    <div class="outro__marquee" aria-hidden="true">
+      <span>Creative Designer - Dominik Gola -&nbsp;</span><span>Creative Designer - Dominik Gola -&nbsp;</span>
+    </div>
+    <img class="outro__logo" id="outroLogo" src="/src/footer/logo-render.webp" alt="" width="177" height="202">
+  </div>
+</section>

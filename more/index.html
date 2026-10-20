@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>More works — Dominik Gola</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="referrer" content="no-referrer">
+  <link rel="preload" href="/src/fonts/PPNeueMontreal-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://framerusercontent.com" crossorigin>
+  <script>
+    // before first paint: look open if this browser kept a key (src/more/gate.js checks it really decrypts)
+    (function () { var k = false; try { k = !!localStorage.getItem('dg:more-k'); } catch (e) {}
+      document.documentElement.classList.add(k ? 'more-open' : 'more-locked'); })();
+  </script>
+  <link rel="stylesheet" href="/src/styles/base.css">
+  <link rel="stylesheet" href="/src/footer/footer.css">
+  <link rel="stylesheet" href="/src/more/more.css">
+  <link rel="stylesheet" href="/src/drawer/drawer.css">
+</head>
+<body data-page="more" data-logo-dock>
+  <!-- @nav -->
+
+  <!-- Big chrome G: spins on the headline, docks into the nav logo slot on scroll (src/home/hero-logo.js) -->
+  <div class="hero-logo" id="heroLogo" aria-hidden="true"></div>
+
+  <!-- Hidden page (not linked anywhere): the works only show after the key is entered. Figma "To export", node 121:14373. -->
+  <main>
+    <!-- the hero is sticky only within this wrapper, so it ends with the works (otherwise it shows through the outro) -->
+    <div class="mintro">
+    <section class="mh" id="hero" data-nav-theme="light" aria-label="More works">
+      <div class="mh__inner">
+        <p class="mh__kicker">More works</p>
+        <div class="mh__textwrap">
+          <!-- one sentence per line; nbsp keeps the last words together when a phone wraps them -->
+          <h1 class="mh__text"><span class="mh__line">Not every story can be <span class="mh__blue">told&nbsp;out&nbsp;loud</span></span> <span class="mh__line">These ones are whispered&nbsp;→</span> <span class="mh__line">only to those who hold the&nbsp;key</span></h1>
+          <div class="mh__slot" id="heroLogoSlot" aria-hidden="true"></div>
+        </div>
+        <form class="mh__gate" id="gate" autocomplete="off">
+          <label class="mh__label" for="gateKey">Key</label>
+          <input class="mh__key" id="gateKey" type="password" placeholder="Enter the key" spellcheck="false" autocapitalize="off">
+          <button class="pill mh__go" type="submit">Unlock</button>
+        </form>
+      </div>
+      <!-- brands strip: filled in by main.js only after unlocking (the logos are part of the sealed content) -->
+      <div class="mlogos" id="mlogos" aria-label="Brands I’ve worked with" hidden></div>
+    </section>
+
+    <!-- Content in src/more/content.js (Personal = Home's cases; studio groups = placeholders). Strips move by themselves; drag them left/right. -->
+    <div class="more" id="more" data-nav-theme="dark"></div>
+    </div>
+
+    <!-- @footer -->
+  </main>
+
+  <script type="module" src="/src/more/main.js"></script>
+</body>
+</html>

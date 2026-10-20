@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Logo variants — Dominik Gola</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/src/styles/base.css">
+  <link rel="stylesheet" href="/src/logo/logo.css">
+</head>
+<body data-page="logo">
+  <!-- @nav -->
+
+  <!-- Internal comparison page: the Home chrome G in three finishes (src/logo/main.js). -->
+  <main class="lg" data-nav-theme="light">
+    <header class="lg__head">
+      <h1 class="lg__title">Chrome G — variants</h1>
+      <div class="lg__controls" role="group" aria-label="Background and motion">
+        <button class="pill lg__bg" type="button" data-bg="white" aria-pressed="true">White</button>
+        <button class="pill lg__bg" type="button" data-bg="black" aria-pressed="false">Black</button>
+        <button class="pill lg__bg" type="button" data-bg="blue" aria-pressed="false">Blue</button>
+        <button class="pill lg__spin" type="button" id="lgSpin" aria-pressed="true">Spin</button>
+      </div>
+    </header>
+    <ol class="lg__grid" id="lgGrid"></ol>
+    <p class="lg__hint">Drag a letter to turn them all. The small ones are nav size (52 × 59).</p>
+  </main>
+
+  <script type="module" src="/src/logo/main.js"></script>
+</body>
+</html>

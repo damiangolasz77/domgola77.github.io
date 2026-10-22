@@ -5,3 +5,4 @@ snap-*.png
 __pycache__/
 tools/bake/logo-field/h.npy
 private/
+exports/
